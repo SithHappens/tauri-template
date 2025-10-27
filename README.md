@@ -1,13 +1,13 @@
 # Tauri Template
 
-## Features
-
-- VSCode tasks
+- Typescript and pnpm
 - PostCSS
 - Rust toolchain file and rustfmt
+- VSCode tasks
 
-## Development Setup
+## How to build
 
+Development server
 ```sh
 pnpm tauri dev
 ```

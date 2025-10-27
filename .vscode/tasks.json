@@ -1,0 +1,80 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build:debug",
+            "type": "cargo",
+            "command": "build",
+            "options": {
+                "cwd": "${workspaceRoot}/src-tauri"
+            },
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
+            "label": "ui:dev",
+            "type": "shell",
+            "isBackground": true,
+            // use pnpm so it matches `tauri.conf.json`'s `beforeDevCommand`
+            "command": "pnpm",
+            "args": [
+                "dev"
+            ],
+            // A lightweight background matcher: marks the task ready when Vite prints a "Local:" line.
+            // This allows using the background task as a preLaunchTask in `launch.json`.
+            "problemMatcher": {
+                "owner": "vite-dev-server",
+                "pattern": {
+                    // captures the entire output line
+                    "regexp": "^(.*)$",
+                    "message": 1
+                },
+                "background": {
+                    "activeOnStart": true,
+                    // output from the first line onward
+                    "beginsPattern": "^",
+                    // endsPattern: when a line matching this appears, VS Code marks
+                    // the background task as "ready". Vite prints a line such as
+                    // "Local: http://localhost:5173" when the dev server is ready,
+                    // so we match `Local:.*` here.
+                    "endsPattern": "Local:.*"
+                }
+            },
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
+            // This task stops the vite development server
+            "label": "ui:stop",
+            "command": "echo ${input:terminate}",
+            "type": "shell",
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
+            "label": "dev",
+            "dependsOn": [
+                "build:debug",
+                "ui:dev"
+            ],
+            "group": {
+                "kind": "build"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "terminate",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+        }
+    ]
+}
