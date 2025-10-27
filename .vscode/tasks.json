@@ -4,6 +4,21 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "build:ts-bindings",
+            "type": "cargo",
+            "command": "test",
+            "args": [
+                "export_bindings"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/src-tauri"
+            },
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
             "label": "build:debug",
             "type": "cargo",
             "command": "build",
@@ -62,6 +77,7 @@
             "label": "dev",
             "dependsOn": [
                 "build:debug",
+                "build:ts-bindings",
                 "ui:dev"
             ],
             "group": {

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./view/app";
+import App from "./view/App";
 import "../pcss/main.pcss";
 
 

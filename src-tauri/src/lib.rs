@@ -1,3 +1,23 @@
+use serde::Serialize;
+use serde_with_macros::skip_serializing_none;
+use ts_rs::TS;
+
+
+// Example to showcase how the Typescript bindings are generated from this struct,
+// so this is the single source of truth.
+#[skip_serializing_none]
+#[derive(Serialize, TS, Debug)]
+#[ts(export, export_to = "../../src-ui/src/bindings/")]
+pub struct Task {
+    pub id: String,
+    pub ctime: String,
+    pub project_id: String,
+    pub done: bool,
+    pub title: String,
+    pub description: Option<String>,
+}
+
+
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
 fn greet(name: &str) -> String {
