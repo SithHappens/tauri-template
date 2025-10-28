@@ -7,7 +7,7 @@ use ts_rs::TS;
 // so this is the single source of truth.
 #[skip_serializing_none]
 #[derive(Serialize, TS, Debug)]
-#[ts(export, export_to = "../../src-ui/src/bindings/")]
+#[ts(export)]
 pub struct Task {
     pub id: String,
     pub ctime: String,
